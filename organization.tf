@@ -1,15 +1,9 @@
 resource "aws_organizations_organization" "org" {
   count = var.already_exists ? 0 : 1
 
-  aws_service_access_principals = [
-    "cloudtrail.amazonaws.com",
-    "config.amazonaws.com",
-    var.enable_aws_sso ? "sso.amazonaws.com" : "",
-    var.enable_compute_optimizer ? "compute-optimizer.amazonaws.com" : "",
-    var.enable_cost_optimizer ? "cost-optimization-hub.bcm.amazonaws.com" : "",
-  ]
+  aws_service_access_principals = var.aws_service_access_principals
 
-  enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
+  enabled_policy_types = var.enabled_policy_types
 
   feature_set = "ALL"
 }

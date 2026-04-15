@@ -7,17 +7,24 @@ variable "already_exists" {
   description = "Whether the organization already exists or needs to be created"
 }
 
-variable "enable_aws_sso" {
-  default     = false
-  description = "Whether the AWS SSO needs to be enabled when creating a new organisation"
+variable "aws_service_access_principals" {
+  type = list(string)
+  description = "list of service principals to be enabled when creating a new organisation"
+  default = [
+      "cloudtrail.amazonaws.com",
+      "config.amazonaws.com",
+      "cost-optimization-hub.bcm.amazonaws.com",
+      "inspector2.amazonaws.com",
+      "member.org.stacksets.cloudformation.amazonaws.com",
+      "notifications.amazonaws.com",
+      "ssm.amazonaws.com",
+      "sso.amazonaws.com",
+  ]
 }
 
-variable "enable_compute_optimizer" {
-  default     = false
-  description = "Whether the AWS Compute Optimizer needs to be enabled when creating a new organisation"
-}
-
-variable "enable_cost_optimizer" {
-  default     = false
-  description = "Whether the AWS Compute Optimize needs to be enabled when creating a new organisation"
+variable "enabled_policy_types" {
+  type = list(string)
+  default = [
+      "SERVICE_CONTROL_POLICY"
+  ]
 }
